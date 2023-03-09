@@ -1,0 +1,158 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "NESFab",
+    "patterns": [
+        { "include": "#vars-declaration" },
+        { "include": "#function-declaration" },
+        { "include": "#function-call" },
+        { "include": "#struct-declaration" },
+        { "include": "#modifier-flags" },
+        { "include": "#keywords" },
+        { "include": "#strings" },
+        { "include": "#literals" },
+        { "include": "#comments" },
+        { "include": "#types" },
+        { "include": "#groups" },
+        { "include": "#assembly"}
+    ],
+    "repository": {
+        "keywords": {
+            "patterns": [
+                {
+                    "name": "keyword.control.nesfab",
+                    "match": "\\b(if|else|for|while|do|break|continue|return|label|goto\\s+mode|goto|switch|case|default|nmi|fence)\\b"
+                },
+                {
+                    "name": "constant.language.built-in.nesfab",
+                    "match": "\\b(ready|system)\\b"
+                },
+                {
+                    "name": "storage.modifier.nesfab",
+                    "match": "\\b(ct|stows|employs|preserves|omni)\\b"
+                },
+                {
+                    "name": "storage.type.struct.nesfab",
+                    "match": "\\b(vars|struct|data|chrrom|charmap)\\b"
+                }
+            ]
+        },
+        "assembly": {
+            "patterns": [
+                {
+                    "name": "keyword.control.instruction.nesfab",
+                    "match": "\\b(adc|and|asl|bcc|bcs|beq|bit|bmi|bne|bpl|brk|bvc|bvs|clc|cld|cli|clv|cmp|cpx|cpy|dec|dex|dey|eor|inc|inx|iny|jmp|jsr|lda|ldx|ldy|lsr|nop|ora|pha|php|pla|plp|rol|ror|rti|rts|sbc|sec|sed|sei|sta|stx|sty|tax|tay|tsx|txa|txs|tya|lax|axs|anc|alr|arr|sax|skb|ign|dcp|isc|rla|rra|slo|sre)\\b"
+                }
+            ],
+            "name": "keyword.other.instruction.nesfab"
+        },
+        "groups": {
+            "name": "entity.name.type.group.nesfab",
+            "match": "/\\w+"
+        },
+        "modifier-flags": {
+            "name": "entity.name.type.modifier.nesfab",
+            "match": "[+-](inline|align|zero_page|spr_8x16|graphviz|info|dpcm)\\b"
+        },
+        "struct-declaration": {
+            "match": "\\b(struct)\\s+(\\w+)\\b",
+            "captures": {
+                "1": {"name": "storage.type.struct.nesfab"},
+                "2": {"name": "entity.name.class.nesfab"}
+            }
+        },
+        "function-declaration": {
+            "match": "\\b((?:asm\\s+)?fn|nmi|mode)\\s+(\\w+)\\b",
+            "captures": {
+                "1": {
+                    "name": "storage.type.function.nesfab"
+                },
+                "2": {
+                    "name": "entity.name.function.nesfab"
+                }
+            }
+        },
+        "function-call": {
+            "match": "\\b(\\w+)\\(",
+            "captures": {
+                "1": { "name": "entity.name.function.nesfab" }
+            }
+        },
+        "types": {
+            "patterns": [
+                {
+                    "name": "storage.type.primitive.nesfab",
+                    "match": "\\b(U|UU|UUU|S|SS|SSS|F|FF|FFF|[USF]+|Bool|Void|Int|Real|CC|CCC|MM|MMM|AA|AAA)\\b"
+                },
+                {
+                    "match": "\\b([A-Z]\\w+)(\\[.*?\\])?\\s+\\w+\\b",
+                    "captures": {
+                        "1": { "name": "entity.name.class.nesfab" }
+                    }
+                }
+            ]
+        },
+        "literals": {
+            "patterns": [
+                {
+                    "name": "constant.language.boolean.true.nesfab",
+                    "match": "\\btrue\\b"
+                },
+                {
+                    "name": "constant.language.boolean.false.nesfab",
+                    "match": "\\bfalse\\b"
+                },
+                {
+                    "name": "constant.numeric.decimal.nesfab",
+                    "match": "\\b\\d+\\b"
+                },
+                {
+                    "name": "constant.numeric.hex.nesfab",
+                    "match": "\\$[0-9a-fA-F]+\\b"
+                },
+                {
+                    "name": "constant.numeric.binary.nesfab",
+                    "match": "%[01]+\\b"
+                }
+            ]
+        },
+        "strings": {
+            "name": "string.quoted.double.nesfab",
+            "begin": "(?:([\"'`]))",
+            "end": "(\\1)(\\w+)?",
+            "beginCaptures": {
+                "1": {
+                    "name":  "punctuation.definition.string.begin.nesfab"
+                }
+            },
+            "endCaptures": {
+                "1": {
+                    "name": "punctuation.definition.string.end.nesfab"
+                },
+                "2": {
+                    "name": "constant.character.escape.charmap.nesfab"
+                }
+            },
+            "patterns": [
+                {"include": "#string-escaped-char"}
+            ]
+        },
+        "string-escaped-char": {
+            "name": "constant.character.escape.nesfab",
+            "match": "\\\\x[0-9a-fA-F]{2}|\\\\u[0-9a-fA-F]{4}|\\\\U[0-9a-fA-F]{8}|\\\\."
+        },
+        "comments": {
+            "patterns": [
+                {
+                    "name": "comment.line.double-slash.nesfab",
+                    "match": "//.*$"
+                },
+                {
+                    "name": "comment.block.nesfab",
+                    "begin": "/\\*",
+                    "end": "\\*/"
+                }
+            ]
+        }
+    },
+    "scopeName": "source.nesfab"
+}

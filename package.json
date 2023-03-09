@@ -1,0 +1,29 @@
+{
+  "name": "nesfab-highlighting",
+  "displayName": "NESFab Highlighting",
+  "description": "Provides syntax highlighting for NESFab .fab files.",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RussellSprouts/nesfab-highlighting"
+  },
+  "engines": {
+    "vscode": "^1.76.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "nesfab",
+      "aliases": ["NESFab", "nesfab"],
+      "extensions": [".fab"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "nesfab",
+      "scopeName": "source.nesfab",
+      "path": "./syntaxes/nesfab.tmLanguage.json"
+    }]
+  }
+}
